@@ -1,8 +1,12 @@
 #!/usr/bin/python3
 """API"""
-app = Flask('app_views')
+
+from flask import Flask
 from models import storage
 from api.v1.views import app_views
+
+app = Flask('app_views')
+app.register_blueprint(app_views)
 
 @app.teardown_appcontext
 def close():
