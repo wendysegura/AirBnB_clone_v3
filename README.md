@@ -169,5 +169,11 @@ No known bugs at this time.
 - Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
 - Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 
+###### Version 2
+
+- Wendy Segura - [Github](https://github.com/wendysegura) / [Twitter](https://twitter.com/gwenevere05)
+- Jeffrey Kanemitsu - [Github](https://github.com/jeffreykanemitsu) / [Twitter](https://twitter.com/canofmisosoup)
+
+
 ## License
 Public Domain. No copywrite protection. 
