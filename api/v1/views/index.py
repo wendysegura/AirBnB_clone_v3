@@ -11,20 +11,19 @@ def response_status():
     response = jsonify({'status':'OK'})
     return response
 
-@app_views.route('/api/v1/stats')
+@app_views.route('/stats')
 def get_count():
     """"retrieves the number of each objects by type"""
-    count = {}
-    
+    obj= {}
     name2class = {
-    'Amenity': Amenity,
-    'City': City,
-    'Place': Place,
-    'State': State,
-    'Review': Review,
-    'User': User
+    "amenities": Amenity,
+    "cities": City,
+    "places": Place,
+    "reviews": Review,
+    "states": State,
+    "users": User
 }
     for cls in name2class:
-        number = storage.count(cls)
-        count[name2class.get(cls)] = number
-    return jsonify(count)
+        number = storage.count(obj)
+        obj[name2class.get(cls)] = number
+    return jsonify(obj)
