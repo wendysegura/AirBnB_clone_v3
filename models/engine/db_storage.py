@@ -78,9 +78,9 @@ class DBStorage:
     def get(self, cls, id):
         """retrieve one object"""
         try:
-            return cls + '.' + id
+            return(cls + '.' + id)
         except:
-            None
+            return None
 
     def count(self, cls=None):
         """count number of obj"""
