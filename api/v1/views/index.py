@@ -8,7 +8,7 @@ from models import storage
 @app_views.route('/status')
 def response_status():
     """return json on object appviews"""
-    response = jsonify({'status':'OK'})
+    response = jsonify({'status':'OK'}), 200
     return response
 
 @app_views.route('/stats')
