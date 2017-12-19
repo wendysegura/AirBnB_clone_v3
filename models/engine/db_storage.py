@@ -13,6 +13,7 @@ from models.review import Review
 from models.user import User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+
 name2class = {
     'Amenity': Amenity,
     'City': City,
@@ -73,3 +74,14 @@ class DBStorage:
     def close(self):
         """Dispose of current session if active"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """retrieve one object"""
+        try:
+            return cls + '.' + id
+        except:
+            None
+
+    def count(self, cls=None):
+        """count number of obj"""
+        return len(storage.all(cls))
