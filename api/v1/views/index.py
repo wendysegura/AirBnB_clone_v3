@@ -8,7 +8,7 @@ from models import storage
 @app_views.route('/status')
 def response_status():
     """return json on object appviews"""
-    response = jsonify({'status': 'OK'}), 200
+    response = jsonify({'status': 'OK'})
     return response
 
 
@@ -25,5 +25,5 @@ def get_count():
 
     for cls in name2class:
         number = storage.count(obj)
-        obj[name2class.get(cls)] = number
+        obj[name2class[cls]] = number
     return jsonify(obj)
