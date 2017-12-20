@@ -80,7 +80,7 @@ class DBStorage:
         objects = self.all(cls)
 
         for item in objects.values():
-            if key_id == key:
+            if item.id == id:
                 return item
         return None
 
