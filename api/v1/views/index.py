@@ -5,7 +5,6 @@ from flask import Flask, jsonify
 from models import storage
 from models.state import State
 from models.city import City
-from models.base_model import BaseModel
 
 
 @app_views.route('/status', strict_slasher=False)
@@ -15,7 +14,7 @@ def response_status():
     return response
 
 
-@app_views.route('/stats')
+@app_views.route('/stats', strict_slashes=False)
 def get_count():
     """"retrieves the number of each objects by type"""
     obj = {}
