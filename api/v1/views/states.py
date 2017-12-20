@@ -2,7 +2,7 @@
 """new view for State objects"""
 
 
-from flask import jsonify, 
+from flask import Flask, jsonify 
 from api.v1.views import app_views
 from models.state import State
 from models import storage

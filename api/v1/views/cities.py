@@ -71,4 +71,4 @@ def update_city(city_id):
             if key not in ignore_keys:
                 setatrr(self, key, value)
         city.save()
-       return jsonify(city.to_dict()), 200
+    return jsonify(city.to_dict()), 200
