@@ -5,6 +5,11 @@ from flask import Flask, jsonify
 from models import storage
 from models.state import State
 from models.city import City
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+from models.user import User
 
 
 @app_views.route('/status/', strict_slashes=False)
@@ -25,7 +30,7 @@ def get_count():
                   "states": "State",
                   "users": "User"}
 
-    for cls in name2class:
+    for cls in name2class.keys():
         number = storage.count(obj)
         obj[name2class[cls]] = number
     return jsonify(obj)
