@@ -27,5 +27,5 @@ def get_count():
 
     for cls in name2class:
         number = storage.count(obj)
-        obj[name2class[cls]] = number
+        obj[name2class(cls)] = number
     return jsonify(obj)
