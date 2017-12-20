@@ -1,11 +1,14 @@
 #!/usr/bin/python3
 """routing"""
-from api.v1.views import app_views
+from api.v1.views import app_views, storage
 from flask import Flask, jsonify
 from models import storage
+from models.state import State
+from models.city import City
+from models.base_model import BaseModel
 
 
-@app_views.route('/status')
+@app_views.route('/status', strict_slasher=False)
 def response_status():
     """return json on object appviews"""
     response = jsonify({'status': 'OK'})
