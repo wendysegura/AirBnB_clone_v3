@@ -48,26 +48,27 @@ def create_city(state_id):
     body_dict = request.get_json
     if not dict_body:
         abort(404, "Not a JSON")
-
-    if key in body_dict != "name":
+    if 'name' not in body_dict:
         abort(404, "Missing name")
+    
     city.save()
     return jsonify(city_to_dict()), 201
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def update_city(city_id):
     """Updates a city object"""
-    city = city = storage.get("City", city_id)
+    city = storage.get("City", city_id)
     if not city:
         abort(404)
 
     body_dict = request.get_json
     if not dict_body:
         abort(404, "Not a JSON")
-
-    for key, value in dict_body.items():
-        ignore_keys = ["id", "state_id", "created_at", "updated_at"]
-        """"not sure what to put here"""
-
-    city.save()
-    return jsonify(city.to_dict()), 200
+    
+    ignore_keys = ["id", "state_id", "created_at", "updated_at"]
+    if city:
+        for key, value in dict_body.items():
+            if key not in ignore_keys:
+                setatrr(self, key, value)
+        city.save()
+       return jsonify(city.to_dict()), 200
