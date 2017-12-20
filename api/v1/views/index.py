@@ -7,14 +7,14 @@ from models.state import State
 from models.city import City
 
 
-@app_views.route('/status')
+@app_views.route('/status/', strict_slashes=False)
 def response_status():
     """return json on object appviews"""
     response = jsonify({'status': 'OK'})
     return response
 
 
-@app_views.route('/stats')
+@app_views.route('/stats/', strict_slashes=False)
 def get_count():
     """"retrieves the number of each objects by type"""
     obj = {}
