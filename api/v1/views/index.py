@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """routing"""
-from api.v1.views import app_views, storage
+from api.v1.views import app_views
 from flask import Flask, jsonify
 from models import storage
 from models.state import State
@@ -27,5 +27,5 @@ def get_count():
 
     for cls in name2class:
         number = storage.count(obj)
-        obj[name2class(cls)] = number
+        obj[name2class[cls]] = number
     return jsonify(obj)
