@@ -4,19 +4,18 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models.user import User
 from models import storage
-from models.state import State
 
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def all_users():
     """Retrieves the list of all user objects"""
-    state = storage.get("State", state_id)
+    user = storage.get("User", user_id)
     list_users = []
-    users = storage.all("User")
+    users_all = storage.all("User")
 
-    if state is None:
+    if user is None:
         abort(404)
-    for item in users.values():
+    for item in users_all.values():
         if item.state_id == state_id:
             list_users.append(item.to_dict())
     return jsonify(list_users)
@@ -47,9 +46,6 @@ def delete_user(user_id):
                  strict_slashes=False)
 def create_user(s):
     """Creates a User"""
-    state = storage.get("State", state_id)
-    if state is None:
-        abort(404)
     body_dict = request.get_json
     if not request.is_json:
         abort(404, "Not a JSON")
