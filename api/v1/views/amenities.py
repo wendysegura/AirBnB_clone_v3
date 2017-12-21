@@ -5,6 +5,7 @@ from api.v1.views import app_views
 from flask import Flask, abort, request, jsonify
 from models.amenity import Amenity
 
+
 @app_views.route('/amenities', methods=['GET'],
                  strict_slashes=False)
 def get_amenities():
@@ -45,9 +46,9 @@ def create_amenity(amenity_id):
     """ creates State object """
     req = request.get_json()
     if not request.is_json:
-        abort(("Not a JSON"), 400)
+        abort(400, "Not a JSON")
     if not "name":
-        abort(("Missing name"), 400)
+        abort(400, "Missing name")
     amenity = Amenity(**req)
     amenity.save()
     storage.close()
