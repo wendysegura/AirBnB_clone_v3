@@ -19,7 +19,7 @@ def get_amenities():
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['GET'])
-def get_id(amenity_id):
+def amenities_id(amenity_id):
     """ retrieves State object """
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
