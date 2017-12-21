@@ -6,7 +6,6 @@ from api.v1.views import app_views
 from flask import Flask, abort, request, jsonify
 
 
-
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_state():
     """ retrieves the list of all State obj """
@@ -34,7 +33,7 @@ def delete_state(state_id):
     empty = {}
     if state is None:
         abort(404)
-   
+
     storage.delete(state)
     storage.save()
     storage.close()
