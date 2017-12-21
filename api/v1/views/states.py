@@ -2,26 +2,21 @@
 """creates a new view for State objects"""
 from models import storage
 from models.state import State
-from flask import Flask, abort, request, jsonify, Blueprint
+from flask import abort, request, jsonify
+from api.v1.views import app_views
 
-states = Blueprint("states", __name__)
 
-
-@states.route('/states', methods=['GET'], strict_slashes=False)
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_state():
     """ retrieves the list of all State obj """
     all_state = []
-    states = storage.all("State").values()
+    states = storage.all("State")
     for s in states:
         all_state.append(s.to_dict())
     return jsonify(all_state)
 
 
-<<<<<<< HEAD
-@states.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
-=======
-@app_views.route('/states/<state_id>', methods=['GET'])
->>>>>>> parent of 1576752... Revert "updated"
+@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_id(state_id):
     """ retrieves State object """
     state = storage.get("State", state_id)
@@ -30,12 +25,8 @@ def get_id(state_id):
     return jsonify(state.to_dict())
 
 
-<<<<<<< HEAD
-@states.route('/states/<state_id>', methods=['DELETE'],
-              strict_slashes=False)
-=======
-@app_views.route('/states/<state_id>', methods=['DELETE'])
->>>>>>> parent of 1576752... Revert "updated"
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_state(state_id):
     """ delete State object if no id """
     state = storage.get("State", state_id)
@@ -49,13 +40,14 @@ def delete_state(state_id):
     return (jsonify(empty), 200)
 
 
-@states.route('/states', methods=['POST'], strict_slashes=False)
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
     """ creates State object """
     req = request.get_json()
-    if req is None:
+    if not request.is_json:
         abort(400, "Not a JSON")
-    if "name" not is req:
+    name = req.get("name")
+    if not name:
         abort(400, "Missing name")
     state = State(**req)
     storage.new(state)
@@ -64,16 +56,12 @@ def create_state():
     return (jsonify(state.to_dict()), 201)
 
 
-<<<<<<< HEAD
-@states.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
-=======
-@app_views.route('/states/<state_id>', methods=['PUT'])
->>>>>>> parent of 1576752... Revert "updated"
+@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
     """update"""
     req = request.get_json()
     state = storage.get("State", state_id)
-    if req is None:
+    if not request.is_json:
         abort(400, "Not a JSON")
     if state is None:
         abort(404)
