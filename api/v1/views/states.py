@@ -34,7 +34,7 @@ def delete_state(state_id):
     if state is None:
         abort(404)
 
-    storage.delete(state)
+    state.delete()
     storage.save()
     storage.close()
     return (jsonify(empty), 200)
@@ -46,11 +46,12 @@ def create_state():
     req = request.get_json()
     if not request.is_json:
         abort(400, "Not a JSON")
-    elif "name" not in req:
-        return (("Missing name"), 400)
+    name = req.get('name')
+    if not name:
+        abort(400, "Missing name")
     state = State(**req)
     storage.new(state)
-    storage.save()
+    state.save()
     storage.close()
     return (jsonify(state.to_dict()), 201)
 
@@ -61,12 +62,14 @@ def update_state(state_id):
     state = storage.get("State", state_id)
     if not request.is_json:
         abort(400, "Not a JSON")
-    req = request.get_json
+    if state is None:
+        abort(404)
+    req = request.get_json()
     ignore_keys = ["id", "created_at", "updated_at"]
     if state:
         for key, value in req.items():
             if key not in ignore_keys:
-                setattr(self, key, value)
+                setattr(state, key, value)
         storage.save()
         storage.close()
     return jsonify(state.to_dict()), 200
