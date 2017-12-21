@@ -14,7 +14,7 @@ cities = Blueprint("cities", __name__)
                  strict_slashes=False)
 def all_cities(state_id):
     """Retrieves the list of all city objects"""
-    city = storage.get("City", city_id)
+    state = storage.get("State", state_id)
     list_cities = []
 
     if not state:
@@ -22,7 +22,7 @@ def all_cities(state_id):
     for city in state.cities:
         if city.id == city_id:
             list_cities.append(city.to_dict())
-            return jsonify(list_cities)
+        return jsonify(list_cities)
 
 
 @app_views.route('/cities/city_id', methods=['GET'])
@@ -79,4 +79,4 @@ def update_city(city_id):
             if key not in ignore_keys:
                 setattr(self, key, value)
         storage.save()
-        return jsonify(city.to_dict()), 200
+    return jsonify(city.to_dict()), 200
