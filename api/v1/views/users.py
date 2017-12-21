@@ -16,8 +16,7 @@ def all_users():
     if user is None:
         abort(404)
     for item in users_all.values():
-        if item.state_id == state_id:
-            list_users.append(item.to_dict())
+        list_users.append(item.to_dict())
     return jsonify(list_users)
 
 
