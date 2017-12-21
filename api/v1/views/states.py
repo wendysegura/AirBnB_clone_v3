@@ -38,6 +38,7 @@ def delete_state(state_id):
         abort(404)
     else:
         storage.delete(state)
+        storage.save()
     return (jsonify(empty), 200)
 
 
@@ -47,10 +48,11 @@ def create_state():
     req = request.get_json()
     if req is None:
         return (jsonify("Not a JSON"), 400)
-    elif "name" not in req:
+    if "name" not in req:
         return (("Missing name"), 400)
     state = State(**req)
-    state.save()
+    storage.new(state)
+    storage.save()
     return (jsonify(state.to_dict()), 201)
 
 
@@ -68,5 +70,5 @@ def update_state(state_id):
         for key, value in req.items():
             if key not in ignore_keys:
                 setattr(self, key, value)
-        state.save()
+        storage.save()
     return jsonify(state.to_dict()), 200
