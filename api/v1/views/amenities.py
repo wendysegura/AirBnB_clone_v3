@@ -17,8 +17,7 @@ def get_amenities():
     return jsonify(all_amenities)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'],
-                 strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['GET'])
 def get_id(amenity_id):
     """ retrieves State object """
     amenity = storage.get("Amenity", amenity_id)
@@ -27,8 +26,7 @@ def get_id(amenity_id):
     return jsonify(amenity.to_dict())
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
-                 strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'])
 def delete_amenity(amenity_id):
     """ delete State object if no id """
     amenity = storage.get("Amenity", amenity_id)
@@ -45,9 +43,9 @@ def delete_amenity(amenity_id):
 def create_amenity(amenity_id):
     """ creates State object """
     req = request.get_json()
-    if not request.is_json:
+    if req is None:
         abort(400, "Not a JSON")
-    if not "name":
+    if "name" not in req:
         abort(400, "Missing name")
     amenity = Amenity(**req)
     amenity.save()
@@ -55,14 +53,13 @@ def create_amenity(amenity_id):
     return (jsonify(amenity.to_dict()), 201)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
-                 strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'])
 def update_amenity(amenity_id):
     amenity = storage.get("Amenity", amenity_id)
-    if state is None:
+    if amenity is None:
         abort(404)
     req = request.get_json
-    if not req:
+    if req is None:
         abort(404, "Not a JSON")
     ignore_keys = ["id", "created_at", "updated_at"]
 
