@@ -30,7 +30,6 @@ def get_count():
                   "states": "State",
                   "users": "User"}
 
-    for cls in name2class.keys():
-        number = storage.count(obj)
-        obj[name2class[cls]] = number
+    for key, value in name2class.items():
+        obj[key] = storage.count(value)
     return jsonify(obj)
