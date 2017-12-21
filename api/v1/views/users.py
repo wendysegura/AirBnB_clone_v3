@@ -12,11 +12,11 @@ def all_users():
     """Retrieves the list of all user objects"""
     state = storage.get("State", state_id)
     list_users = []
-    all_users = storage.all("User")
+    users = storage.all("User")
 
     if state is None:
         abort(404)
-    for item in all_users.values():
+    for item in users.values():
         if item.state_id == state_id:
             list_users.append(item.to_dict())
     return jsonify(list_users)
