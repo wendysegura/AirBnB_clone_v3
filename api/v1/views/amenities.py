@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """creates a new view for Amenity objects"""
 from models import storage
-from flask import Flask, abort, request, jsonify, Blueprint
-from models.amenity import Amenity
+from flask import Flask, abort, request, jsonify
+from models.city import City
+from models.state import State
+from api.v1.views import app_views
 
-amenities = Blueprint("amenities", __name__)
 
-
-@amenities.route('/amenities', methods=['GET'],
+@app_views.route('/amenities', methods=['GET'],
                  strict_slashes=False)
 def get_amenities():
     """ retrieves the list of all amenities obj """
@@ -18,7 +18,7 @@ def get_amenities():
     return jsonify(all_amenities)
 
 
-@amenities.route('/amenities/<amenity_id>', methods=['GET'])
+@app_views.route('/amenities/<amenity_id>', methods=['GET'])
 def get_id(amenity_id):
     """ retrieves State object """
     amenity = storage.get("Amenity", amenity_id)
@@ -27,7 +27,7 @@ def get_id(amenity_id):
     return jsonify(amenity.to_dict())
 
 
-@amenities.route('/amenities/<amenity_id>', methods=['DELETE'])
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'])
 def delete_amenity(amenity_id):
     """ delete State object if no id """
     amenity = storage.get("Amenity", amenity_id)
@@ -40,7 +40,7 @@ def delete_amenity(amenity_id):
     return (jsonify(empty), 200)
 
 
-@amenities.route('/amenities', methods=['POST'], strict_slashes=False)
+@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def create_amenity(amenity_id):
     """ creates State object """
     req = request.get_json()
@@ -54,7 +54,7 @@ def create_amenity(amenity_id):
     return (jsonify(amenity.to_dict()), 201)
 
 
-@amenities.route('/amenities/<amenity_id>', methods=['PUT'])
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'])
 def update_amenity(amenity_id):
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
