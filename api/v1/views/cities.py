@@ -9,7 +9,7 @@ cities = Blueprint("cities", __name__)
 
 
 @cities.route('/states/<state_id>/cities', methods=['GET'],
-                 strict_slashes=False)
+              strict_slashes=False)
 def all_cities(state_id):
     """Retrieves the list of all city objects"""
     all_city = []
@@ -46,7 +46,7 @@ def delete_city(city_id):
 
 
 @cities.route('/states/<state_id>/cities', methods=['POST'],
-                 strict_slashes=False)
+              strict_slashes=False)
 def create_city(state_id):
     """Creates a City"""
     req = request.get_json

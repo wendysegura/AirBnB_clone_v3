@@ -27,7 +27,7 @@ def get_id(state_id):
 
 
 @states.route('/states/<state_id>', methods=['DELETE'],
-                 strict_slashes=False)
+              strict_slashes=False)
 def delete_state(state_id):
     """ delete State object if no id """
     state = storage.get("State", state_id)
