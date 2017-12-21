@@ -61,7 +61,7 @@ def update_amenity(amenity_id):
         abort(404, "Not a JSON")
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
-        abort(404)   
+        abort(404)
     ignore_keys = ["id", "created_at", "updated_at"]
 
     for key, value in req.items():
