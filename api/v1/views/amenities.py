@@ -56,7 +56,7 @@ def create_amenity(amenity_id):
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
 def update_amenity(amenity_id):
-    req = request.get_json
+    req = request.get_json()
     if not request.is_json:
         abort(404, "Not a JSON")
     amenity = storage.get("Amenity", amenity_id)
