@@ -9,15 +9,15 @@ from models import storage
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'],
                  strict_slashes=False)
-def all_places(place_id):
+def all_reviews(place_id):
     """Retrieves the list of all review objects"""
     place = storage.get("Place", place_id)
     list_reviews = []
-    all_reviews = storage.all("Review")
+    reviews = storage.all("Review")
 
     if place is None:
         abort(404)
-    for item in all_reviews.values():
+    for item in reviews.values():
         if item.place_id == place_id:
             list_reviews.append(item.to_dict())
     return jsonify(list_reviews)

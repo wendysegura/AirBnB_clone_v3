@@ -7,7 +7,7 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('users', methods=['GET'], strict_slashes=False)
+@app_views.route('/users', methods=['GET'], strict_slashes=False)
 def all_users():
     """Retrieves the list of all user objects"""
     state = storage.get("State", state_id)

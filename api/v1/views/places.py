@@ -9,15 +9,15 @@ from models import storage
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
-def all_places():
+def all_places(city_id):
     """Retrieves the list of all place objects"""
     city = storage.get("City", city_id)
     list_places = []
-    all_places = storage.all("Place")
+    places = storage.all("Place")
 
     if city is None:
         abort(404)
-    for item in all_places.values():
+    for item in places.values():
         if item.state_id == city_id:
             list_places.append(item.to_dict())
     return jsonify(list_places)
