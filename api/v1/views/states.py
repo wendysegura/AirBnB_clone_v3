@@ -39,6 +39,7 @@ def delete_state(state_id):
     else:
         storage.delete(state)
         storage.save()
+        storage.close()
     return (jsonify(empty), 200)
 
 
@@ -53,6 +54,7 @@ def create_state():
     state = State(**req)
     storage.new(state)
     storage.save()
+    storage.close()
     return (jsonify(state.to_dict()), 201)
 
 
@@ -71,4 +73,5 @@ def update_state(state_id):
             if key not in ignore_keys:
                 setattr(self, key, value)
         storage.save()
+        storage.close()
     return jsonify(state.to_dict()), 200
