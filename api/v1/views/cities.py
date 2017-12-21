@@ -1,12 +1,10 @@
 #!/usr/bin/python3
 """new view for City objects"""
-
-
 from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models.city import City
 from models import storage
-from models import State
+from models.state import State
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
@@ -18,7 +16,7 @@ def all_cities(state_id):
 
     if state is None:
         abort(404)
-    for item in all_cities.values:
+    for item in all_cities.values():
         if item.state_id == state_id:
             list_cities.append(item.to_dict())
     return jsonify(list_cities)
