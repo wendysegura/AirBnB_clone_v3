@@ -7,7 +7,8 @@ from api.v1.views import app_views
 from flask import Flask, abort, request, jsonify
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>/cities', methods=['GET'],
+                 strict_slashes=False)
 def all_cities(state_id):
     """Retrieves the list of all city objects"""
     all_city = []
@@ -38,7 +39,6 @@ def delete_city(city_id):
     empty = {}
     if city is None:
         abort(404)
-    
     city.delete()
     storage.save()
     storage.close()
