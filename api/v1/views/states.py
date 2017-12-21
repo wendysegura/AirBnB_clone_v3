@@ -61,6 +61,8 @@ def update_state(state_id):
     state = storage.get("State", state_id)
     if not request.is_json:
         abort(400, "Not a JSON")
+    if state is None:
+        abort(404)
     req = request.get_json
     ignore_keys = ["id", "created_at", "updated_at"]
     if state:
