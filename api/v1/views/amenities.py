@@ -56,12 +56,12 @@ def create_amenity(amenity_id):
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
 def update_amenity(amenity_id):
+    req = request.get_json
+    if not request.is_json:
+        abort(404, "Not a JSON")
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
-        abort(404)
-    req = request.get_json
-    if req is None:
-        abort(404, "Not a JSON")
+        abort(404)   
     ignore_keys = ["id", "created_at", "updated_at"]
 
     for key, value in req.items():
