@@ -46,8 +46,9 @@ def create_state():
     req = request.get_json()
     if not request.is_json:
         abort(400, "Not a JSON")
-    elif "name" not in req:
-        return (("Missing name"), 400)
+    name = req.get('name')
+    if not name:
+        abort(400, "Missing name")
     state = State(**req)
     storage.new(state)
     storage.save()
