@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """creates a new view for Amenity objects"""
-from models import storagey
+from models import storage
 from api.v1.views import app_views
 from flask import Flask, abort, request, jsonify
 from models.city import City
