@@ -6,6 +6,7 @@ from models.city import City
 from models import storage
 from models.state import State
 
+
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
 def all_cities(state_id):
@@ -70,7 +71,7 @@ def update_city(city_id):
     if city is None:
         abort(404)
 
-    body_dict = request.get_json
+    body_dict = request.get_json()
     if not request.is_json:
         abort(404, "Not a JSON")
 
