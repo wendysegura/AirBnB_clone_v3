@@ -8,8 +8,12 @@ from api.v1.views import app_views
 from flask import Flask, jsonify, Response
 from flask_cors import CORS
 app = Flask(__name__)
-app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+
+app.register_blueprint(app_views, url_prefix="/api/v1")
+app.register_blueprint(states, url_prefix="/api/v1/states")
+app.register_blueprint(cities, url_prefix="/api/v1/cities")
+app.register_blueprint(amenities, url_prefix="/api/v1/amenities")
 
 
 @app.teardown_appcontext
