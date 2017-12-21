@@ -2,25 +2,27 @@
 """new view for City objects"""
 
 
-from flask import jsonify, request, abort
+from flask import jsonify, request, abort, Blueprint
 from api.v1.views import app_views
 from models.city import City
 from models import storage
+
+cities = Blueprint("cities", __name__)
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
 def all_cities(state_id):
     """Retrieves the list of all city objects"""
-    state = storage.get("State", state_id)
+    city = storage.get("City", city_id)
     list_cities = []
 
     if not state:
         abort(404)
     for city in state.cities:
-        if city.state_id == state_id:
+        if city.id == city_id:
             list_cities.append(city.to_dict())
-    return jsonify(list_cities)
+            return jsonify(list_cities)
 
 
 @app_views.route('/cities/city_id', methods=['GET'])
@@ -76,5 +78,5 @@ def update_city(city_id):
         for key, value in dict_body.items():
             if key not in ignore_keys:
                 setattr(self, key, value)
-        city.save()
-    return jsonify(city.to_dict()), 200
+        storage.save()
+        return jsonify(city.to_dict()), 200
