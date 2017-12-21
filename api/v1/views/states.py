@@ -50,10 +50,10 @@ def create_state():
     if not name:
         abort(400, "Missing name")
     update_state = State(**req)
-    storage.new(state)
-    state.save()
+    storage.new(update_state)
+    update_state.save()
     storage.close()
-    return jsonify(state.to_dict()), 201
+    return jsonify(update_state.to_dict()), 201
 
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
