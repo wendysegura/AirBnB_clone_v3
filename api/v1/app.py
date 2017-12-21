@@ -4,7 +4,7 @@
 import os
 from os import getenv
 from models import storage
-from api.v1.views import app_views
+from api.v1.views import app_views, states, cities, amenities
 from flask import Flask, jsonify, Response
 from flask_cors import CORS
 app = Flask(__name__)
