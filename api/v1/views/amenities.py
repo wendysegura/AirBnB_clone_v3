@@ -7,7 +7,7 @@ from models.city import City
 from models.state import State
 
 
-@app_views.route('/states/<state_id>/amenities', methods=['GET'],
+@app_views.route('/amenities', methods=['GET'],
                  strict_slashes=False)
 def get_amenities():
     """ retrieves the list of all amenities obj """
