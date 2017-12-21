@@ -4,6 +4,7 @@ from models import storage
 from models.state import State
 from api.v1.views import app_views
 from flask import Flask, abort, request, jsonify
+from models.city import City
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -53,12 +54,13 @@ def create_state():
 
 @app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
+    """update"""
     state = storage.get("State", state_id)
     if not state:
         abort(404)
     req = request.get_json
     if not req:
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
     ignore_keys = ["id", "created_at", "updated_at"]
     if state:
         for key, value in req.items():
