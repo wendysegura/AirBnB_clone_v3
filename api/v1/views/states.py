@@ -3,8 +3,10 @@
 from models import storage
 from models.state import State
 from api.v1.views import app_views
-from flask import Flask, abort, request, jsonify
+from flask import Flask, abort, request, jsonify, Blueprint
 from models.city import City
+
+states = Blueprint("states", __name__)
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
