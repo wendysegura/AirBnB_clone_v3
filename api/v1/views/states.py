@@ -3,10 +3,8 @@
 from models import storage
 from models.state import State
 from api.v1.views import app_views
-from flask import Flask, abort, request, jsonify, Blueprint
-from models.city import City
+from flask import Flask, abort, request, jsonify
 
-states = Blueprint("states", __name__)
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
@@ -36,10 +34,10 @@ def delete_state(state_id):
     empty = {}
     if state is None:
         abort(404)
-    else:
-        storage.delete(state)
-        storage.save()
-        storage.close()
+   
+    storage.delete(state)
+    storage.save()
+    storage.close()
     return (jsonify(empty), 200)
 
 
