@@ -18,7 +18,7 @@ def all_places(city_id):
     if city is None:
         abort(404)
     for item in places.values():
-        if item.state_id == city_id:
+        if item.city_id == city_id:
             list_places.append(item.to_dict())
     return jsonify(list_places)
 
@@ -52,7 +52,7 @@ def create_place(s):
     city = storage.get("City", city_id)
     if city is None:
         abort(404)
-    body_dict = request.get_json
+    body_dict = request.get_jsoni()
     if not request.is_json:
         abort(400, "Not a JSON")
     user_id = body_dict.get("user_id")
