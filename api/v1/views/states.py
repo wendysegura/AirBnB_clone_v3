@@ -2,7 +2,7 @@
 """creates a new view for State objects"""
 from models import storage
 from models.state import State
-from flask import abort, request, jsonify
+from flask import Flask, abort, request, jsonify
 from api.v1.views import app_views
 
 
@@ -10,7 +10,7 @@ from api.v1.views import app_views
 def get_state():
     """ retrieves the list of all State obj """
     all_state = []
-    states = storage.all("State")
+    states = storage.all("State").values()
     for s in states:
         all_state.append(s.to_dict())
     return jsonify(all_state)
@@ -49,7 +49,7 @@ def create_state():
     name = req.get("name")
     if not name:
         abort(400, "Missing name")
-    state = State(**req)
+    update_state = State(**req)
     storage.new(state)
     state.save()
     storage.close()
@@ -71,4 +71,4 @@ def update_state(state_id):
             setattr(state, key, value)
     state.save()
     storage.close()
-    return jsonify(state.to_dict()), 200
+    return jsonify(state.to_dict())
