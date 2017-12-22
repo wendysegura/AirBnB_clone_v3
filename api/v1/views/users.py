@@ -12,9 +12,6 @@ def all_users():
     user = storage.get("User", user_id)
     list_users = []
     users_all = storage.all("User")
-
-    if user is None:
-        abort(404)
     for item in users_all.values():
         list_users.append(item.to_dict())
     return jsonify(list_users)
