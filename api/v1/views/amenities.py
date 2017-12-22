@@ -37,7 +37,7 @@ def delete_amenity(amenity_id):
     storage.delete(amenity)
     storage.save()
     storage.close()
-    return (jsonify(empty), 200)
+    return jsonify(empty), 200
 
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
@@ -49,9 +49,10 @@ def create_amenity(amenity_id):
     if "name" not in req:
         abort(400, "Missing name")
     amenity = Amenity(**req)
+    storage.new(amenity)
     amenity.save()
     storage.close()
-    return (jsonify(amenity.to_dict()), 201)
+    return jsonify(amenity.to_dict()), 201
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
@@ -66,7 +67,7 @@ def update_amenity(amenity_id):
 
     for key, value in req.items():
         if key not in ignore_keys:
-            setattr(self, key, value)
+            setattr(amenity, key, value)
     amenity.save()
     storage.close()
-    return jsonify(amenity.to_dict())
+    return jsonify(amenity.to_dict()), 200
