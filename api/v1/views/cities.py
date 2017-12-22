@@ -61,7 +61,7 @@ def create_city(state_id):
     upd_city = City(**body_dict)
     upd_city.state_id = state_id
     storage.new(upd_city)
-    storage.save()
+    upd_city.save()
     storage.close()
     return jsonify(upd_city.to_dict()), 201
 
@@ -77,9 +77,9 @@ def update_city(city_id):
         abort(404)
 
     ignore_keys = ["id", "state_id", "created_at", "updated_at"]
-    for key, value in dict_body.items():
+    for key, value in body_dict.items():
         if key not in ignore_keys:
             setattr(city, key, value)
-    storage.save()
+    city.save()
     storage.close()
     return jsonify(city.to_dict()), 200
