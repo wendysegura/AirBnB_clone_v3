@@ -65,6 +65,7 @@ def create_place(city_id):
     if not name:
         abort(400, "Missing name")
     new_place = Place(**body_dict)
+    new_place.city_id = city_id
     storage.new(new_place)
     new_place.save()
     storage.close()
