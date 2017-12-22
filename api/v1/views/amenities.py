@@ -4,7 +4,7 @@ from models import storage
 from flask import Flask, abort, request, jsonify
 from models.city import City
 from models.state import State
-from models.amenities import Amenities
+from models.amenity import Amenity
 from api.v1.views import app_views
 
 
@@ -32,24 +32,25 @@ def amenities_id(amenity_id):
 def delete_amenity(amenity_id):
     """ delete State object if no id """
     amenity = storage.get("Amenity", amenity_id)
-    empty = {}
     if amenity is None:
         abort(404)
-    storage.delete(amenity)
+    amenity.delete()
     storage.save()
     storage.close()
-    return jsonify(empty), 200
+    return jsonify({}), 200
 
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def create_amenity(amenity_id):
     """ creates State object """
     req = request.get_json()
-    if req is None:
+    if not request.is_json:
         abort(400, "Not a JSON")
+    name = req.get('name')
     if "name" not in req:
         abort(400, "Missing name")
     amenity = Amenity(**req)
+    amenity.state_id = state_id
     storage.new(amenity)
     amenity.save()
     storage.close()
