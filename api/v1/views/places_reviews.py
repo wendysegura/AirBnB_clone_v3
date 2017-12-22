@@ -84,7 +84,7 @@ def update_review(review_id):
         abort(400, "Not a JSON")
 
     ignore_keys = ["id", "user_id", "place_id", "created_at", "updated_at"]
-    for key, value in dict_body.items():
+    for key, value in body_dict.items():
         if key not in ignore_keys:
             setattr(review, key, value)
     review.save()
