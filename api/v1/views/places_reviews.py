@@ -4,6 +4,7 @@ from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models.place import Place
 from models.city import City
+from models.user import User
 from models.review import Review
 from models import storage
 
@@ -56,11 +57,11 @@ def create_review(place_id):
     body_dict = request.get_json()
     if not request.is_json:
         abort(400, "Not a JSON")
-    user = body_dict.get("user_id")
-    if not user:
+    user_id = body_dict.get("user_id")
+    if not user_id:
         abort(400, "Missing user_id")
-    user_id = storage.get("User", user_id)
-    if user_id is None:
+    user = storage.get("User", user_id)
+    if user is None:
         abort(404)
     text = body_dict.get("text")
     if not text:
