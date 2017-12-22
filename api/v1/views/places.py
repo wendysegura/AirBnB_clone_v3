@@ -58,7 +58,8 @@ def create_place(s):
     user_id = body_dict.get("user_id")
     if not user_id:
         abort(400, "Missing user_id")
-    if user_id is None:
+    usere = storage.get("User", user_id)
+    if user is None:
         abort(404)
     name = body_dict.get('name')
     if not name:
@@ -82,7 +83,7 @@ def update_place(place_id):
     if not request.is_json:
         abort(400, "Not a JSON")
 
-    ignore_keys = ["id", "user_id", "state_id", "created_at", "updated_at"]
+    ignore_keys = ["id", "user_id", "city_id", "created_at", "updated_at"]
     for key, value in body_dict.items():
         if key not in ignore_keys:
             setattr(place, key, value)
