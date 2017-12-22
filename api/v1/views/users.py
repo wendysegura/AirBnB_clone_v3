@@ -69,7 +69,7 @@ def update_user(user_id):
         abort(400, "Not a JSON")
 
     ignore_keys = ["id", "email", "created_at", "updated_at"]
-    for key, value in dict_body.items():
+    for key, value in body_dict.items():
         if key not in ignore_keys:
             setattr(user, key, value)
     user.save()
