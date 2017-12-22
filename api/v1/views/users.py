@@ -40,7 +40,7 @@ def delete_user(user_id):
 
 @app_views.route('/states/<state_id>/users', methods=['POST'],
                  strict_slashes=False)
-def create_user(s):
+def create_user():
     """Creates a User"""
     body_dict = request.get_json()
     if not request.is_json:
