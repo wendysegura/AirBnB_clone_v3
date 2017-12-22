@@ -4,6 +4,7 @@ from models import storage
 from flask import Flask, abort, request, jsonify
 from models.city import City
 from models.state import State
+from models.amenities import Amenities
 from api.v1.views import app_views
 
 
@@ -59,7 +60,7 @@ def create_amenity(amenity_id):
 def update_amenity(amenity_id):
     req = request.get_json()
     if not request.is_json:
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
         abort(404)
