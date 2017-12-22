@@ -58,7 +58,7 @@ def create_place():
     user_id = body_dict.get("user_id")
     if not user_id:
         abort(400, "Missing user_id")
-    usere = storage.get("User", user_id)
+    user = storage.get("User", user_id)
     if user is None:
         abort(404)
     name = body_dict.get('name')
