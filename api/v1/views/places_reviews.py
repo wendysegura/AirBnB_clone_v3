@@ -65,7 +65,7 @@ def create_review(place_id):
     if not text:
         abort(400, "Missing text")
     new_review = Review(**body_dict)
-    new_rewview.place_id = place_id
+    new_review.place_id = place_id
     storage.new(new_review)
     new_review.save()
     storage.close()
@@ -83,7 +83,7 @@ def update_review(review_id):
     if not request.is_json:
         abort(400, "Not a JSON")
 
-    ignore_keys = ["id", "user_id", "state_id", "created_at", "updated_at"]
+    ignore_keys = ["id", "user_id", "place_id", "created_at", "updated_at"]
     for key, value in dict_body.items():
         if key not in ignore_keys:
             setattr(review, key, value)
