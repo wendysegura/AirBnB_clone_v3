@@ -23,7 +23,7 @@ def all_places(city_id):
     return jsonify(list_places)
 
 
-@app_views.route('/places/place_id', methods=['GET'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
 def get_place(place_id):
     """Retrieves the State object"""
     place = storage.get("Place", place_id)
@@ -83,7 +83,7 @@ def update_place(place_id):
         abort(400, "Not a JSON")
 
     ignore_keys = ["id", "user_id", "state_id", "created_at", "updated_at"]
-    for key, value in dict_body.items():
+    for key, value in body_dict.items():
         if key not in ignore_keys:
             setattr(place, key, value)
     place.save()
