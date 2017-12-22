@@ -16,7 +16,7 @@ def all_users():
     return jsonify(list_users)
 
 
-@app_views.route('/users/user_id', methods=['GET'], strict_slashes=False)
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user(user_id):
     """Retrieves the State object"""
     user = storage.get("User", user_id)
