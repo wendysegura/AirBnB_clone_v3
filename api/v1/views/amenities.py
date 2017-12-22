@@ -47,10 +47,9 @@ def create_amenity(amenity_id):
     if not request.is_json:
         abort(400, "Not a JSON")
     name = req.get('name')
-    if "name" not in req:
+    if not "name":
         abort(400, "Missing name")
     amenity = Amenity(**req)
-    amenity.state_id = state_id
     storage.new(amenity)
     amenity.save()
     storage.close()
