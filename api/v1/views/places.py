@@ -9,7 +9,7 @@ from models import storage
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
                  strict_slashes=False)
-def all_places():
+def all_places(place_id):
     """Retrieves the list of all place objects"""
     city = storage.get("City", city_id)
     list_places = []
@@ -52,7 +52,7 @@ def create_place():
     city = storage.get("City", city_id)
     if city is None:
         abort(404)
-    body_dict = request.get_jsoni()
+    body_dict = request.get_json()
     if not request.is_json:
         abort(400, "Not a JSON")
     user_id = body_dict.get("user_id")
