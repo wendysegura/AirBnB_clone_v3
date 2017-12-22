@@ -45,10 +45,13 @@ def delete_user(user_id):
                  strict_slashes=False)
 def create_user(s):
     """Creates a User"""
-    body_dict = request.get_json
+    body_dict = request.get_json()
     if not request.is_json:
-        abort(404, "Not a JSON")
-    email = body_dict.get('email')
+        abort(400, "Not a JSON")
+    email = body_dict.get("email")
+    if not email:
+        abort(400, "Missing email")
+    password = body_dict.get("password")
     if not password:
         abort(400, "Missing password")
     new_user = User(**body_dict)
@@ -67,9 +70,9 @@ def update_user(user_id):
 
     body_dict = request.get_json()
     if not request.is_json:
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
 
-    ignore_keys = ["id", "state_id", "created_at", "updated_at"]
+    ignore_keys = ["id", "email", "created_at", "updated_at"]
     for key, value in dict_body.items():
         if key not in ignore_keys:
             setattr(user, key, value)

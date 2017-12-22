@@ -81,7 +81,7 @@ def update_review(review_id):
 
     body_dict = request.get_json()
     if not request.is_json:
-        abort(404, "Not a JSON")
+        abort(400, "Not a JSON")
 
     ignore_keys = ["id", "user_id", "state_id", "created_at", "updated_at"]
     for key, value in dict_body.items():
