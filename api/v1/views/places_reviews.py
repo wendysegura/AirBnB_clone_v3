@@ -56,12 +56,13 @@ def create_review(place_id):
     body_dict = request.get_json()
     if not request.is_json:
         abort(400, "Not a JSON")
-    user_id = body_dict.get("user_id")
-    if not user_id:
+    user = body_dict.get("user_id")
+    if not user:
         abort(400, "Missing user_id")
+    user_id = storage.get("User", user_id)
     if user_id is None:
         abort(404)
-    text = body_dict.get('text')
+    text = body_dict.get("text")
     if not text:
         abort(400, "Missing text")
     new_review = Review(**body_dict)
